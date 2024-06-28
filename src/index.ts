@@ -13,12 +13,6 @@ import path from 'path';
 const app = express();
 const PORT = process.env.PORT || 3000;
 
-app.use(express.static(path.join(__dirname, 'public')));
-
-app.get('*', function (req, res) {
-  res.sendFile(path.join(__dirname, 'public', 'index.html'));
-});
-
 app.use(cors({
   origin: '*'
 }))
@@ -30,6 +24,12 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use('/users', userRoutes);
 app.use('/auth', authRoutes);
 app.use('/youtube', youtubeRoutes);
+
+app.use(express.static(path.join(__dirname, 'public')));
+
+app.get('*', function (req, res) {
+  res.sendFile(path.join(__dirname, 'public', 'index.html'));
+});
 
 (async () => {
   await connectDB();

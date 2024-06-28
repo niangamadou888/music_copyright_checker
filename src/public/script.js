@@ -1,5 +1,5 @@
 const searchButton = document.getElementById('SearchSubmit');
-const BASE_URL = 'http://localhost:3000/youtube/video';
+const BASE_URL = '/youtube/video';
 
 function showPreloader() {
   document.querySelector('.preloader').classList.remove('hidden');
@@ -44,7 +44,7 @@ searchButton.addEventListener('click', function() {
       // Send Request to the API
       // Build the URL
 
-      if (SearchByLink.checked) {
+      if (!SearchByLink.checked) {
         console.log(searchValueLink);
         const video_id = getYouTubeVideoId(searchValue);
         console.log(video_id);
