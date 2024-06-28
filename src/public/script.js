@@ -44,7 +44,7 @@ searchButton.addEventListener('click', function() {
       // Send Request to the API
       // Build the URL
 
-      if (!SearchByLink.checked) {
+      if (SearchByLink.checked) {
         console.log(searchValueLink);
         const video_id = getYouTubeVideoId(searchValue);
         console.log(video_id);
