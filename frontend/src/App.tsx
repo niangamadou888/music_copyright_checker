@@ -3,6 +3,7 @@ import {
   RouterProvider,
 } from "react-router-dom";
 import Home from "./pages/Home";
+import Account from "./pages/Account";
 
 export default function App() {
 
@@ -10,6 +11,10 @@ export default function App() {
     {
       path: "/",
       element: <Home />,
+    },
+    {
+      path: "/account",
+      element: <Account />,
     },
   ]);
 

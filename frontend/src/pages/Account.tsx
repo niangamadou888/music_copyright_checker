@@ -1,15 +1,10 @@
 import React from 'react'
 import Navigation from '../components/Navigation'
-import LoginModal from '../modals/Login'
-import RegisterModal from '../modals/Register'
 
-function Home() {
+function Account() {
   return (
     <>
-    <LoginModal />
-    <RegisterModal />
     <div>
-        <Navigation/>
         <div className='w-full h-screen flex flex-col justify-center items-center gap-4'>
           <h1 className='text-4xl font-sans font-extrabold text-black uppercase text-center'>Check music<span className='bg-gradient-to-r from-[#24C9EF] via-[#3484F0] to-[#3A6AF1] bg-clip-text text-transparent block text-3xl'>Copyright</span></h1>
           <div className='w-1/2 flex flex-col gap-4'>
@@ -37,4 +32,4 @@ function Home() {
   )
 }
 
-export default Home
+export default Account
