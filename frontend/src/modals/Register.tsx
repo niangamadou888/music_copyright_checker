@@ -1,5 +1,3 @@
-import React from 'react'
-
 function RegisterModal() {
   return (
     <dialog id="register" className="modal">

@@ -1,5 +1,3 @@
-import React from 'react'
-import Navigation from '../components/Navigation'
 import { Link, useNavigate, useParams } from 'react-router-dom'
 
 function Account() {

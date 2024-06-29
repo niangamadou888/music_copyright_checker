@@ -1,5 +1,3 @@
-import React from 'react'
-
 function LoginModal() {
   return (
     <dialog id="login" className="modal">

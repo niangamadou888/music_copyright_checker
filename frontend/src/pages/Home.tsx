@@ -1,4 +1,3 @@
-import React from 'react'
 import Navigation from '../components/Navigation'
 import LoginModal from '../modals/Login'
 import RegisterModal from '../modals/Register'
