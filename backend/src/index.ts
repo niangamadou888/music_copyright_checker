@@ -25,10 +25,10 @@ app.use('/users', userRoutes);
 app.use('/auth', authRoutes);
 app.use('/youtube', youtubeRoutes);
 
-app.use(express.static(path.join(__dirname, 'public')));
+app.use(express.static(path.join(__dirname, 'dist')));
 
 app.get('*', function (req, res) {
-  res.sendFile(path.join(__dirname, 'public', 'index.html'));
+  res.sendFile(path.join(__dirname, 'dist', 'index.html'));
 });
 
 (async () => {
