@@ -1,10 +1,15 @@
 import React from 'react'
 import Navigation from '../components/Navigation'
+import { useNavigate } from 'react-router-dom'
 
 function Account() {
+    const navigate = useNavigate()
   return (
     <>
     <div>
+        <button onClick={() => navigate(-1)}  className='m-4 rounded-full hover:bg-[#3A6AF1] hover:text-white'>
+        <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" className="feather feather-arrow-left-circle"><circle cx="12" cy="12" r="10"></circle><polyline points="12 8 8 12 12 16"></polyline><line x1="16" y1="12" x2="8" y2="12"></line></svg>
+        </button>
         <div className='w-full h-screen flex flex-col justify-center items-center gap-4'>
           <h1 className='text-4xl font-sans font-extrabold text-black uppercase text-center'>Check music<span className='bg-gradient-to-r from-[#24C9EF] via-[#3484F0] to-[#3A6AF1] bg-clip-text text-transparent block text-3xl'>Copyright</span></h1>
           <div className='w-1/2 flex flex-col gap-4'>
