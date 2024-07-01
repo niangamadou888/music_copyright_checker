@@ -1,5 +1,10 @@
 export type TUser = {
-    username: string,
-    email: string,
-    is_email_verified: boolean
+    data: {
+        token: string,
+        user: {
+            username: string,
+            email: string,
+            is_email_verified: boolean
+        }
+    }
   }

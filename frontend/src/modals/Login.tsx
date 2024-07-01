@@ -1,20 +1,23 @@
 import { useMutation } from "react-query"
 import { loginUser } from "../services/loginUser"
-import { useState } from "react"
+import { useContext, useState } from "react"
 import { schema } from "../schema/loginSchema"
 import { typeToFlattenedError } from "zod"
 import { toast } from "react-toastify"
 import { AxiosError } from "axios"
+import AuthContext from "../context/AuthContext"
 
 function LoginModal() {
     const [email, setEmail] = useState<string>()
     const [password, setPassword] = useState<string>()
     const [error, setError] = useState<typeToFlattenedError<{ email: string; password: string; }, string>>()
 
+    const {login} = useContext(AuthContext)
+
     const mutation = useMutation(loginUser, {
         onSuccess: (data) => {
           toast('sign in successful')
-          localStorage.setItem('user', JSON.stringify(data))
+          login(data)
         //   @ts-ignore
           document.getElementById('login')?.close()
         },
