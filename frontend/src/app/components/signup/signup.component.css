@@ -1,0 +1,111 @@
+.register-container {
+    display: flex;
+    height: 80vh;
+    width: 100vh;
+  }
+
+  .left-side {
+    flex: 1;
+    background: linear-gradient(135deg, #0f2731, #14344e);
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    padding: 2rem;
+    color: #fff;
+    position: relative;
+  }
+
+  .background-image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: -1;
+  }
+
+  .back-to-website {
+    z-index: 1;
+  }
+
+  .back-to-website button {
+    background: none;
+    border: none;
+    color: #fff;
+    cursor: pointer;
+  }
+
+  .right-side {
+    flex: 1;
+    background: linear-gradient(135deg, #326074, #3f78a7);
+    padding: 3rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    color: #ffffff;
+  }
+
+  .right-side h2 {
+    font-size: 2rem;
+  }
+  .right-side a {
+    color: white;
+  }
+
+  .right-side p {
+    margin-bottom: 1rem;
+  }
+
+  form {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .input-group {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 1rem;
+
+  }
+
+  .input-group input {
+    width: 100%;
+    padding: 0.75rem;
+    margin-right: 0.5rem;
+    border: none;
+    border-radius: 5px;
+
+  }
+
+  form input[type="email"],
+  form input[type="password"] {
+    padding: 0.75rem;
+    margin-bottom: 1rem;
+    border: none;
+    border-radius: 5px;
+    margin-right: 0.5rem;
+    margin-top: 5%;
+  }
+
+
+  form button[type="submit"] {
+    background-color: #8c6ec1;
+    color: white;
+    padding: 0.75rem;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    margin-top: 10%;
+
+  }
+.caption{
+  margin-bottom: 20%;
+  margin-left: 7%;
+}
+
+.caption img{
+
+  width: 37vh;
+  height: 50vh;
+}

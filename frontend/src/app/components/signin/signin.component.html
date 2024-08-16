@@ -1,0 +1,21 @@
+<div class="register-container">
+    <div class="left-side">
+      <!-- <img src="path-to-your-image.jpg" alt="Background Image" class="background-image"> -->
+      <div class="back-to-website">
+        <button (click)="goBack()"><img width="50" height="50" src="https://img.icons8.com/ios-filled/50/FFFFFF/home.png" alt="home"/></button>
+      </div>
+      <div class="caption">
+        <!-- replaceable -->
+            </div>
+    </div>
+
+    <div class="right-side">
+      <h2>Welcome Back!</h2>
+      <p>Don't have an account? <a routerLink="/sign-up">Create an account</a></p>
+
+      <form (ngSubmit)="onSubmit()">
+        <input type="email" placeholder="Email" required [(ngModel)]="data.email" [ngModelOptions]="{standalone: true}">
+        <input type="password" placeholder="Enter your password" required [(ngModel)]="data.password" [ngModelOptions]="{standalone: true}">
+
+        <button type="submit">Log In</button>
+      </form>
