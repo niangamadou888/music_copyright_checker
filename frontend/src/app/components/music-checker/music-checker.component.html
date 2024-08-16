@@ -1,7 +1,9 @@
 <app-header></app-header>
+
+
 <section class="music-checker">
     <h1>Check music for copyright</h1>
-    <form (ngSubmit)="submitForm()">
+    <form #searchForm="ngForm" (ngSubmit)="submitForm(searchForm)">
 
       <div class="input-group">
         <input type="text" placeholder="Enter Song Name or Link" [(ngModel)]="search_query" [ngModelOptions]="{standalone: true}" >
@@ -12,7 +14,7 @@
         <input type="radio" id="byLink" name="searchType" value="link">
         <label for="byLink" class="radio-label">By Link</label>
       </div>
-      <button type="submit" class="check-btn">Check</button>
+      <button  type="submit" class="check-btn">Check</button>
     </form>
 
 
@@ -31,3 +33,5 @@
       </li>
     </ul>
   </div>
+
+ 

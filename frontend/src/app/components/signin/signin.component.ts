@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { SignupService } from '../../services/signup.service';
+import { ToastService } from '../../services/toast.service';
 
 @Component({
   selector: 'app-signin',
@@ -8,7 +9,7 @@ import { SignupService } from '../../services/signup.service';
 })
 export class SigninComponent {
 
-  constructor(private userService: SignupService) {}
+  constructor(private userService: SignupService, private toastService: ToastService) {}
 
   data: any = {
     email:'',
@@ -17,10 +18,11 @@ export class SigninComponent {
 
   onSubmit(): void {
 
+
     if(this.data) {
       this.userService.login(this.data).subscribe({
         next: (response: any) => {
-          alert('logged in succesfully')
+          this.toastService.showToast('success', 'User logged in successfully')
           console.log('user logged in', response)
           window.location.href = '/'
           this.data = {
@@ -29,7 +31,8 @@ export class SigninComponent {
           }
         },
         error: (error: any) => {
-          alert('login error')
+          this.toastService.showToast('error', `${error.statusText}`)
+          // alert('login error')
           console.error('log in error', error)
         }
       })

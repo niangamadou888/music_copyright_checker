@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { SignupService } from '../../services/signup.service';
+import { ToastService } from '../../services/toast.service';
 
 @Component({
   selector: 'app-signup',
@@ -14,14 +15,14 @@ export class SignupComponent {
     password: '',
   }
 
-  constructor(private userService: SignupService) {}
+  constructor(private userService: SignupService, private toastService: ToastService) {}
 
   onSubmit(): void {
 
     if (this.data) {
       this.userService.registerUser(this.data).subscribe({
         next: (response: any) => {
-          alert('user reistered succesfuly')
+          this.toastService.showToast('success', 'user reistered succesfuly')
           console.log('User registered successfully:', response);
           this.data = {
             username: '',
@@ -30,7 +31,7 @@ export class SignupComponent {
           }
         },
         error: (error: any) => {
-          alert('Registration error')
+          this.toastService.showToast('error', `${error.statusText}`)
           console.error('Registration error:', error);
         }
       });

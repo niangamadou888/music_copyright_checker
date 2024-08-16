@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { MusicCheckerService } from '../../services/music-checker.service';
 import {MatCardModule} from '@angular/material/card';
+import { ToastService } from '../../services/toast.service';
+import { NgForm } from '@angular/forms';
 
 @Component({
   selector: 'app-music-checker',
@@ -12,14 +14,19 @@ export class MusicCheckerComponent implements OnInit {
   search_query: string = '';
   results: any[] = []
 
-  constructor(private musicService: MusicCheckerService) {}
+  constructor(private musicService: MusicCheckerService, private toastService: ToastService) {}
 
   ngOnInit(): void {
 
 
   }
 
-  submitForm(): void {
+  submitForm(form: NgForm): void {
+
+    if(!this.search_query.trim()) {
+      this.toastService.showToast('error', 'Search query can\'t be empty')
+      return
+    }
 
     if (this.search_query.trim()) {
       this.musicService.getVids(this.search_query).subscribe((response: any) => {
@@ -33,7 +40,7 @@ export class MusicCheckerComponent implements OnInit {
               description: item.snippet.description,
               thumbnail: item.snippet.thumbnails.high.url,
               videoId: item.id.videoId,
-              liscence: lis
+              license: lis
 
             };
           });

@@ -11,6 +11,7 @@ import { provideHttpClient } from '@angular/common/http';
 import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
 import { SignupComponent } from './components/signup/signup.component';
 import { SigninComponent } from './components/signin/signin.component';
+import { ToastComponent } from './components/toast/toast.component';
 
 @NgModule({
   declarations: [
@@ -20,6 +21,7 @@ import { SigninComponent } from './components/signin/signin.component';
     MusicCheckerComponent,
     SignupComponent,
     SigninComponent,
+    ToastComponent,
 
   ],
   imports: [
