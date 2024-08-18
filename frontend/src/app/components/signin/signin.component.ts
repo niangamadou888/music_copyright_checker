@@ -22,9 +22,15 @@ export class SigninComponent {
     if(this.data) {
       this.userService.login(this.data).subscribe({
         next: (response: any) => {
+          console.log('response', response.status)
+          // get the status code
+          if(response.status === 400) {
+      
+            this.toastService.showToast('error', 'Invalid credentials')
+            return;
+          }
           this.toastService.showToast('success', 'User logged in successfully')
-          console.log('user logged in', response)
-          window.location.href = '/'
+          // window.location.href = '/'
           this.data = {
             email: '',
             password: ''
