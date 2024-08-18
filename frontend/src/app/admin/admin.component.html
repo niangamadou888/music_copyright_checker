@@ -40,6 +40,7 @@
       </div>
   
       <div class="upload-actions">
+
         <button 
           type="button" 
           class="btn-submit" 
@@ -47,6 +48,8 @@
         >
           Submit
         </button>
+        <div *ngIf="clicked"  class="lds-ring"><div></div><div></div><div></div><div></div></div>
+
       </div>
     </div>
   </div>

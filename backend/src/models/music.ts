@@ -18,6 +18,7 @@ const MusicSchema = new Schema<Music>({
     },
     url: {
         type: String,
+        required: true,
     },
 });
 

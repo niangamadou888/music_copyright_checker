@@ -12,7 +12,21 @@ export class MusicService {
         return await MusicModel.find();
     }
     async getMusicById(musicId: string): Promise<Music | null> {
-        return await MusicModel.findById(musicId);
+        try {
+            let response = await MusicModel.findById(musicId);
+            // check the length of the response
+            if (response === null) {
+                return null;
+            }
+            return response;
+        } catch (error:any) {
+            console.error("Error fetching music by ID:", error.message);
+            return null;
+        }
+        
+    }
+    async getMusicByVideoId(videoId: string): Promise<Music | null> {
+        return await MusicModel.findOne({ video_id: videoId });
     }
     async createMusic(musicData: Music): Promise<Music | null> {
         return await MusicModel.create(musicData);

@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { AdminService } from '../services/admin.service';
 
 @Component({
   selector: 'app-admin',
@@ -9,6 +10,9 @@ export class AdminComponent {
   youtubeLink: string = '';
   youtubeLinks: string[] = [];
   linkCount: number = 0;
+  clicked: boolean = false;
+
+  constructor(private adminService: AdminService) { }
 
 
   onFileSelected(event: any): void {
@@ -27,9 +31,17 @@ export class AdminComponent {
   }
 
   processLinks(): void {
-    if (this.youtubeLink) {
+    this.clicked = true;
+    if (this.youtubeLinks.length > 0) {
       this.youtubeLinks.push(this.youtubeLink.trim());
       this.linkCount = this.youtubeLinks.length; // Update count when adding a single link
+      this.adminService.addMusicToDatabase(this.youtubeLinks).subscribe((response: any) => {
+        console.log(response);
+        this.clicked = false;
+      });
+    }
+    else {
+      this.clicked = false;
     }
     console.log('Processing the following YouTube links:', this.youtubeLinks);
     // Further processing logic can be added here

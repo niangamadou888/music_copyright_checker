@@ -7,6 +7,7 @@ const musicController = new MusicController();
 
 router.post('/', musicController.createMusic);
 router.get('/', musicController.getAllMusicesByUser);
+router.post('/create-bulk', musicController.createBulkMusic);
 
 
 export default router;
