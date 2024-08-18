@@ -48,6 +48,16 @@ export class YoutubeController {
             "url": `https://youtube.com/embed/${videoId}`
         });
     }
+    getVideoLicenseByVideoName = async (req: Request, res: Response) => {
+        const videoName = req.query.video_name as string;
+        if (!videoName) {
+            res.status(400).send({ message: "Please provide a video name" })
+            return
+        }
+        console.log("Fetching the data...")
+        const response = await this.youtubeService.getVideoLicenseByVideoName(videoName)
+        res.send(response)
+    }
 } 
 
 
