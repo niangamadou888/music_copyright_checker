@@ -148,6 +148,7 @@ input[type="text"]::placeholder {
 .result-action button {
   border-style: none !important;
   background-color: inherit;
+  cursor: pointer;
 }
 
 

@@ -48,6 +48,7 @@ export class MusicCheckerComponent implements OnInit {
     console.log(this.clicked)
 
     if(!this.search_query.trim() && !this.search_query.trim()) {
+      this.clicked = false;
       this.toastService.showToast('error', 'Search query can\'t be empty')
       return
     }
@@ -57,32 +58,12 @@ export class MusicCheckerComponent implements OnInit {
     } else {
       this.searchById();
     }
-    
-
-    // if (this.search_query.trim()) {
-    //   this.musicService.getVidsById(this.search_query).subscribe((response: any) => {
-    //     this.results = [];
-
-    //     if (response.items && response.items.length > 0) {
-    //       this.results = response.items.map((item: { snippet: { title: any; description: any; thumbnails: { high: { url: any; }; }; }; id: { videoId: any; }; }) => {
-    //         const lis = this.musicService.getLicense(item.id.videoId).subscribe(data => console.log(data.data))
-    //         return {
-    //           title: item.snippet.title,
-    //           description: item.snippet.description,
-    //           thumbnail: item.snippet.thumbnails.high.url,
-    //           videoId: item.id.videoId,
-    //           license: lis
-
-    //         };
-    //       });
-    //     }
-    //   });
-    // }
   }
 
   likeVideo(videoId: string): void {
     this.musicService.likeVideo(videoId).subscribe((response: any) => {
       if (response.success) {
+        console.log(response)
         this.toastService.showToast('success', 'Video liked successfully');
       } else {
         this.toastService.showToast('error', 'Failed to like video');
