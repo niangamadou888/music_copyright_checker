@@ -63,9 +63,7 @@ export class YoutubeController {
         console.log(videoId)
         console.log("Fetching the data...")
         const response = await this.youtubeService.getVideoLicense(videoId.toString())
-        res.json({
-            response
-        });
+        res.send(response);
     }
     getVideoLicenseByVideoName = async (req: Request, res: Response) => {
         const videoName = req.query.video_name as string;

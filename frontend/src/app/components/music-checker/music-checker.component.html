@@ -2,24 +2,25 @@
 
 
 <section class="music-checker">
-    <h1>Check music for copyright</h1>
-    <form #searchForm="ngForm" (ngSubmit)="submitForm(searchForm)">
+  <h1>Check music for copyright</h1>
+  <form #searchForm="ngForm" (ngSubmit)="submitForm(searchForm)">
 
-      <div class="input-group">
-        <input type="text" placeholder="Enter Song Name or Link" [(ngModel)]="search_query" [ngModelOptions]="{standalone: true}" >
-      </div>
-      <div class="radio-group">
-        <input type="radio" id="byName" name="searchType" value="name" checked>
-        <label for="byName" class="radio-label">By Name</label>
-        <input type="radio" id="byLink" name="searchType" value="link">
-        <label for="byLink" class="radio-label">By Link</label>
-      </div>
-      <button  type="submit" class="check-btn">Check</button>
-    </form>
+    <div class="input-group">
+      <input type="text" placeholder="Enter Song Name or Link" [(ngModel)]="search_query" [ngModelOptions]="{standalone: true}">
+    </div>
+    
+    <div class="radio-group">
+      <input type="radio" id="byName" name="searchType" value="name" [(ngModel)]="searchType">
+      <label for="byName" class="radio-label">By Name</label>
+      
+      <input type="radio" id="byLink" name="searchType" value="link" [(ngModel)]="searchType">
+      <label for="byLink" class="radio-label">By Link</label>
+    </div>
+    
+    <button type="submit" class="check-btn">Check</button>
+  </form>
+</section>
 
-
-
-  </section>
   <div class="results" *ngIf="results.length > 0">
     <h2>Search Results</h2>
     <ul>
@@ -27,8 +28,11 @@
         <div class="result-item">
           <img [src]="result.thumbnail" alt="Thumbnail" />
           <div class="result-info">
-            <h3>{{ result.title }}</h3>
+            <h3>{{ result.title }}</h3> 
           </div>
+        <div class="result-action">
+          <button><img width="50" height="50" src="https://img.icons8.com/ios/50/FFFFFF/facebook-like--v1.png" alt="facebook-like--v1"/></button>
+        </div>
         </div>
       </li>
     </ul>

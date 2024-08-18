@@ -33,6 +33,8 @@ export class YoutubeService {
                 const license = video.contentDetails.licensedContent;
                 const tags = video.snippet.tags || [];
                 const categoryId = video.snippet.categoryId;
+                const thumbnail = video.snippet.thumbnails?.high?.url || video.snippet.thumbnails?.default?.url || '';
+                const title = video.snippet.title;
     
                 // Fetch category name using category ID
                 const categoryUrl = `${BASE_URL}/videoCategories?part=snippet&id=${categoryId}&key=${apiKey}`;
@@ -50,6 +52,8 @@ export class YoutubeService {
                     category: categoryName,
                     tags: tags,
                     url: `https://youtube.com/embed/${videoId}`,
+                    title,
+                    thumbnail,
                 };
             } else {
                 throw new Error('No video details found.');
@@ -83,6 +87,8 @@ export class YoutubeService {
                 if (videoDetails.items && videoDetails.items.length > 0) {
                     const videoSnippet = videoDetails.items[0].snippet;
                     const videoContentDetails = videoDetails.items[0].contentDetails;
+                    const thumbnail = videoSnippet.thumbnails?.high?.url || videoSnippet.thumbnails?.default?.url || '';
+                    const title = videoSnippet.title;
     
                     const license = videoContentDetails.licensedContent;
                     const categoryId = videoSnippet.categoryId;
@@ -92,6 +98,7 @@ export class YoutubeService {
                     const categoryUrl = `${BASE_URL}/videoCategories?part=snippet&id=${categoryId}&key=${API_KEY}`;
                     const categoryResponse = await axios.get(categoryUrl);
                     const categoryData = categoryResponse.data;
+                    
     
                     let categoryName = 'Unknown';
                     if (categoryData.items && categoryData.items.length > 0) {
@@ -104,6 +111,8 @@ export class YoutubeService {
                         category: categoryName,
                         tags: tags, // Include tags in the response
                         url: `https://youtube.com/embed/${videoId}`,
+                        thumbnail,
+                        title,
                     };
                 } else {
                     throw new Error('No video details found.');

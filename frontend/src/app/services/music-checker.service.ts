@@ -10,11 +10,18 @@ export class MusicCheckerService {
 
   constructor(private http: HttpClient ) { }
 
-  getVids(search_query: string): Observable<any> {
-    return this.http.get<any>(`http://localhost:3000/youtube/search?search_query=${search_query}`)
+  getVidsByName(search_query: string): Observable<any> {
+    return this.http.get<any>(`http://localhost:3000/youtube/video-by-name?video_name=${search_query}`)
+  }
+  getVidsById(videoId: string): Observable<any> {
+    return this.http.get<any>(`http://localhost:3000/youtube/video?video_id=${videoId}`)
   }
 
   getLicense(videoId: string): Observable<any> {
     return this.http.get<any>(`http://localhost:3000/youtube/video?video_id=${videoId}`)
+  }
+
+  likeVideo(videoId: string): Observable<any> {
+    return this.http.post<any>(`http://localhost:3000/youtube/music`, {video_id: videoId})
   }
 }

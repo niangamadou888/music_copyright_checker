@@ -144,3 +144,8 @@ input[type="text"]::placeholder {
   color: #ccc;
   margin: 0;
 }
+
+.result-action button {
+  border-style: none !important;
+  background-color: inherit;
+}
