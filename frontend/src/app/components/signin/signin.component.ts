@@ -30,6 +30,7 @@ export class SigninComponent {
             return;
           }
           this.toastService.showToast('success', 'User logged in successfully')
+          localStorage.setItem('token', response.body.token)
           // window.location.href = '/'
           this.data = {
             email: '',
