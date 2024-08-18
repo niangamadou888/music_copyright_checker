@@ -4,12 +4,13 @@ import { MusicCheckerComponent } from './components/music-checker/music-checker.
 import { SignupComponent } from './components/signup/signup.component';
 import { SigninComponent } from './components/signin/signin.component';
 import { AdminComponent } from './admin/admin.component';
+import { AuthGuard } from './services/auth.guard';
 
 const routes: Routes = [
   {path: '', component: MusicCheckerComponent},
   {path: 'sign-up', component: SignupComponent},
   {path: 'sign-in', component: SigninComponent},
-  {path: 'admin', component: AdminComponent}
+  {path: 'admin', component: AdminComponent, canActivate: [AuthGuard]}
 ];
 
 @NgModule({
