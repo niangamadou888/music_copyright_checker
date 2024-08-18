@@ -144,6 +144,10 @@ input[type="text"]::placeholder {
   color: #ccc;
   margin: 0;
 }
+.result-info img {
+  width: 48px !important;
+  height: 48px !important;
+}
 
 .result-action button {
   border-style: none !important;

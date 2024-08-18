@@ -15,11 +15,12 @@ export class MusicCheckerComponent implements OnInit {
   results: any[] = []
   searchType: string = 'name';
   clicked: boolean = false;
+  isLogged: boolean = false;
 
   constructor(private musicService: MusicCheckerService, private toastService: ToastService) {}
 
   ngOnInit(): void {
-
+    this.isAuth();
 
   }
   searchByName(): void {
@@ -70,5 +71,16 @@ export class MusicCheckerComponent implements OnInit {
       }
     });
   }
+
+  isAuth(): boolean {
+    console.log(localStorage.getItem('token'))
+    if(localStorage.getItem('token')) {
+      this.isLogged = true;
+      return true;
+    }
+    return false;
+  }
+  
+
   
 }

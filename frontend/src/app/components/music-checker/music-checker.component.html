@@ -32,9 +32,12 @@
           <img [src]="result.thumbnail" alt="Thumbnail" />
           <div class="result-info">
             <h3>{{ result.title }}</h3> 
+             <p *ngIf="!result.license">No Copyright: <img *ngIf="!result.license" src="https://img.icons8.com/fluency/48/verified-account--v1.png" alt="verified-account--v1"/></p>
+             <p  *ngIf="result.license">Potential Copyright: <img *ngIf="result.license" src="https://img.icons8.com/ios-filled/50/FA5252/verified-account.png" alt="cancel--v1"/></p>
+             
           </div>
-        <div class="result-action">
-          <button><img width="50" height="50" src="https://img.icons8.com/ios/50/FFFFFF/facebook-like--v1.png" alt="facebook-like--v1"/></button>
+        <div *ngIf="isLogged" class="result-action">
+          <button ><img width="50" height="50" src="https://img.icons8.com/ios/50/FFFFFF/facebook-like--v1.png" alt="facebook-like--v1"/></button>
         </div>
         </div>
       </li>
