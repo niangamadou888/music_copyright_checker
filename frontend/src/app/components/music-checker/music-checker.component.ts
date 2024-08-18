@@ -14,6 +14,7 @@ export class MusicCheckerComponent implements OnInit {
   search_query: string = '';
   results: any[] = []
   searchType: string = 'name';
+  clicked: boolean = false;
 
   constructor(private musicService: MusicCheckerService, private toastService: ToastService) {}
 
@@ -25,6 +26,7 @@ export class MusicCheckerComponent implements OnInit {
     this.musicService.getVidsByName(this.search_query).subscribe((response: any) => {
       this.results.push(response)
       console.log(response)
+      this.clicked = false;
       return response
     });
   }
@@ -33,6 +35,7 @@ export class MusicCheckerComponent implements OnInit {
     this.musicService.getVidsById(this.search_query).subscribe((response: any) => {
       this.results.push(response)
       console.log(response)
+      this.clicked = false;
       return response
     });
   }
@@ -40,6 +43,9 @@ export class MusicCheckerComponent implements OnInit {
   submitForm(form: NgForm): void {
 
     this.results = [];
+
+    this.clicked = true;
+    console.log(this.clicked)
 
     if(!this.search_query.trim() && !this.search_query.trim()) {
       this.toastService.showToast('error', 'Search query can\'t be empty')
@@ -51,6 +57,7 @@ export class MusicCheckerComponent implements OnInit {
     } else {
       this.searchById();
     }
+    
 
     // if (this.search_query.trim()) {
     //   this.musicService.getVidsById(this.search_query).subscribe((response: any) => {

@@ -17,7 +17,10 @@
       <label for="byLink" class="radio-label">By Link</label>
     </div>
     
-    <button type="submit" class="check-btn">Check</button>
+    <button type="submit" class="check-btn">Check </button>
+    <!-- make the spinner next to the above button -->
+     
+    <div *ngIf="clicked" class="lds-ring"><div></div><div></div><div></div><div></div></div>
   </form>
 </section>
 
