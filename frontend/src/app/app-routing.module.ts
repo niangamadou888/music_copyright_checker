@@ -3,11 +3,13 @@ import { RouterModule, Routes } from '@angular/router';
 import { MusicCheckerComponent } from './components/music-checker/music-checker.component';
 import { SignupComponent } from './components/signup/signup.component';
 import { SigninComponent } from './components/signin/signin.component';
+import { AdminComponent } from './admin/admin.component';
 
 const routes: Routes = [
   {path: '', component: MusicCheckerComponent},
   {path: 'sign-up', component: SignupComponent},
-  {path: 'sign-in', component: SigninComponent}
+  {path: 'sign-in', component: SigninComponent},
+  {path: 'admin', component: AdminComponent}
 ];
 
 @NgModule({

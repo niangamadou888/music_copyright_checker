@@ -17,36 +17,92 @@ export class YoutubeService {
         const response = await axios.get(url)
         return response.data
     }
-    async getVideoLicense(videoId: string): Promise<any> {
-        const url = `${BASE_URL}/videos?part=contentDetails&id=${videoId}&key=${apiKey}`
-        const response = await axios.get(url)
-        return response.data
+    // async getVideoLicense(videoId: string): Promise<any> {
+    //     const url = `${BASE_URL}/videos?part=contentDetails&id=${videoId}&key=${apiKey}`
+    //     const response = await axios.get(url)
+    //     return response.data
+    // }
+    async  getVideoLicense(videoId: string): Promise<any> {
+        const url = `${BASE_URL}/videos?part=snippet,contentDetails&id=${videoId}&key=${apiKey}`;
+        try {
+            const response = await axios.get(url);
+            const data = response.data;
+    
+            if (data.items && data.items.length > 0) {
+                const video = data.items[0];
+                const license = video.contentDetails.licensedContent;
+                const tags = video.snippet.tags || [];
+                const categoryId = video.snippet.categoryId;
+    
+                // Fetch category name using category ID
+                const categoryUrl = `${BASE_URL}/videoCategories?part=snippet&id=${categoryId}&key=${apiKey}`;
+                const categoryResponse = await axios.get(categoryUrl);
+                const categoryData = categoryResponse.data;
+    
+                let categoryName = 'Unknown';
+                if (categoryData.items && categoryData.items.length > 0) {
+                    categoryName = categoryData.items[0].snippet.title;
+                }
+    
+                return {
+                    videoId,
+                    license,
+                    category: categoryName,
+                    tags: tags,
+                    url: `https://youtube.com/embed/${videoId}`,
+                };
+            } else {
+                throw new Error('No video details found.');
+            }
+        } catch (error: any) {
+            console.error('Error fetching video details:', error.message);
+            throw error;
+        }
     }
     extractVideoId(url: string): string {
         const videoId = url.split("v=")[1]
         return videoId 
     }
     async getVideoLicenseByVideoName(videoName: string): Promise<any> {
-        const API_KEY = apiKey; // Replace with your actual API key
-        const url = `${BASE_URL}/search?part=snippet&q=${encodeURIComponent(videoName)}&key=${API_KEY}&type=video`;
+        const API_KEY = apiKey;
+        const searchUrl = `${BASE_URL}/search?part=snippet&q=${encodeURIComponent(videoName)}&key=${API_KEY}&type=video`;
     
         try {
-            const response = await axios.get(url);
-            const data = response.data;
+            // Fetch video ID by name
+            const searchResponse = await axios.get(searchUrl);
+            const searchData = searchResponse.data;
     
-            if (data.items && data.items.length > 0) {
-                const videoId = data.items[0].id.videoId;
+            if (searchData.items && searchData.items.length > 0) {
+                const videoId = searchData.items[0].id.videoId;
     
-                // Fetch video details to get the license information
-                const detailsUrl = `https://www.googleapis.com/youtube/v3/videos?part=contentDetails&id=${videoId}&key=${API_KEY}`;
+                // Fetch video details including tags
+                const detailsUrl = `${BASE_URL}/videos?part=snippet,contentDetails&id=${videoId}&key=${API_KEY}`;
                 const detailsResponse = await axios.get(detailsUrl);
                 const videoDetails = detailsResponse.data;
     
                 if (videoDetails.items && videoDetails.items.length > 0) {
-                    const license = videoDetails.items[0].contentDetails.licensedContent;
+                    const videoSnippet = videoDetails.items[0].snippet;
+                    const videoContentDetails = videoDetails.items[0].contentDetails;
+    
+                    const license = videoContentDetails.licensedContent;
+                    const categoryId = videoSnippet.categoryId;
+                    const tags = videoSnippet.tags || []; // Get the tags
+    
+                    // Fetch category name using category ID
+                    const categoryUrl = `${BASE_URL}/videoCategories?part=snippet&id=${categoryId}&key=${API_KEY}`;
+                    const categoryResponse = await axios.get(categoryUrl);
+                    const categoryData = categoryResponse.data;
+    
+                    let categoryName = 'Unknown';
+                    if (categoryData.items && categoryData.items.length > 0) {
+                        categoryName = categoryData.items[0].snippet.title;
+                    }
+    
                     return {
                         videoId,
                         license,
+                        category: categoryName,
+                        tags: tags, // Include tags in the response
                         url: `https://youtube.com/embed/${videoId}`,
                     };
                 } else {
@@ -55,11 +111,12 @@ export class YoutubeService {
             } else {
                 throw new Error('No videos found.');
             }
-        } catch (error:any) {
-            console.error('Error fetching video license:', error.message);
+        } catch (error: any) {
+            console.error('Error fetching video details:', error.message);
             throw error;
         }
     }
+    
     // async getVideoInfo(video_id:string): Promise <any> {
     //     const url = `${BASE_URL}/videos?`
     // }
