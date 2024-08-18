@@ -2,10 +2,14 @@ import MusicModel from "../models/music";
 import { Music } from "../models/music";
 
 export class MusicService {
-    async getAllMusics(query: any, options: any): Promise<Music[]> {
+    async getAllMusicsByUser(query: any, options: any): Promise<Music[]> {
         // Prepare the filter object based on query parameters
         const result = await MusicModel.find(query, null, options);
         return result;
+    }
+    //  get all musics
+    async getAllMusics(): Promise<Music[]> {
+        return await MusicModel.find();
     }
     async getMusicById(musicId: string): Promise<Music | null> {
         return await MusicModel.findById(musicId);

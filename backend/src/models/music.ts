@@ -2,13 +2,13 @@ import { Schema, Document, model } from "mongoose";
 
 
 export interface Music extends Document {
-    youtube_id: string;
+    video_id: string;
     user_id: string;
     url: string;
 }
 
 const MusicSchema = new Schema<Music>({
-    youtube_id: {
+    video_id: {
         type: String,
         required: true,
     },

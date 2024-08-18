@@ -6,6 +6,7 @@ import 'dotenv/config';
 import userRoutes from './routes';
 import authRoutes from './routes/authRoutes';
 import youtubeRoutes from './routes/youtubeRoutes';
+import musicRoutes from './routes/musicRoutes';
 
 import bodyParser from 'body-parser';
 import path from 'path';
@@ -24,6 +25,7 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use('/users', userRoutes);
 app.use('/auth', authRoutes);
 app.use('/youtube', youtubeRoutes);
+app.use('/music', musicRoutes);
 
 app.use(express.static(path.join(__dirname, 'public')));
 

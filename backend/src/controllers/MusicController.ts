@@ -6,25 +6,36 @@ import MusicModel from "../models/music";
 
 
 
-class MusicController {
+export class MusicController {
     private musicService: MusicService
     // write 3 methods for getting all musics by the user, getting a single music by the user, and creating a music
 
     constructor() {
         this.musicService = new MusicService()
     }
-    async getAllMusices (req: AuthRequest, res: Response): Promise<void> {
+    async getAllMusicesByUser (req: AuthRequest, res: Response): Promise<void> {
         try{
             const { query, options} = buildQuery(MusicModel, req.query)
         query.user_id = req.user._id
 
-        const musics = await this.musicService.getAllMusics(query, options)
+        const musics = await this.musicService.getAllMusicsByUser(query, options)
         res.status(200).json(musics)
         } catch (error) {
             res.status(500).json({ message: error })
         }
             
     }
+
+    // get musics of all users
+    async getAllMusics (req: Request, res: Response): Promise<void> {
+        try {
+            const musics = await this.musicService.getAllMusics()
+            res.status(200).json(musics)
+        } catch (error) {
+            res.status(500).json({ message: error })
+        }
+    }
+
 
     async getMusicById (req: AuthRequest, res: Response): Promise<void> {
         try {
