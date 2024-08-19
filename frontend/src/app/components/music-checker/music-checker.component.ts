@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { MusicCheckerService } from '../../services/music-checker.service';
-import {MatCardModule} from '@angular/material/card';
 import { ToastService } from '../../services/toast.service';
 import { NgForm } from '@angular/forms';
+
 
 @Component({
   selector: 'app-music-checker',
@@ -73,14 +73,20 @@ export class MusicCheckerComponent implements OnInit {
   }
 
   isAuth(): boolean {
-    console.log(localStorage.getItem('token'))
-    if(localStorage.getItem('token')) {
+    let token: string | null = null;
+
+    if (typeof window !== 'undefined') {
+      token = localStorage.getItem('token');
+      console.log(token);
+    }
+
+    if (token) {
       this.isLogged = true;
       return true;
     }
+
+    this.isLogged = false;
     return false;
   }
-  
 
-  
 }
