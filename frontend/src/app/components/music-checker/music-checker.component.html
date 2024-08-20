@@ -8,18 +8,18 @@
     <div class="input-group">
       <input type="text" placeholder="Enter Song Name or Link" [(ngModel)]="search_query" [ngModelOptions]="{standalone: true}">
     </div>
-    
+
     <div class="radio-group">
       <input type="radio" id="byName" name="searchType" value="name" [(ngModel)]="searchType">
       <label for="byName" class="radio-label">By Name</label>
-      
+
       <input type="radio" id="byLink" name="searchType" value="link" [(ngModel)]="searchType">
       <label for="byLink" class="radio-label">By Link</label>
     </div>
-    
+
     <button type="submit" class="check-btn">Check </button>
     <!-- make the spinner next to the above button -->
-     
+
     <div *ngIf="clicked" class="lds-ring"><div></div><div></div><div></div><div></div></div>
   </form>
 </section>
@@ -31,10 +31,10 @@
         <div class="result-item">
           <img [src]="result.thumbnail" alt="Thumbnail" />
           <div class="result-info">
-            <h3>{{ result.title }}</h3> 
-             <p *ngIf="!result.license">No Copyright: <img *ngIf="!result.license" src="https://img.icons8.com/fluency/48/verified-account--v1.png" alt="verified-account--v1"/></p>
-             <p  *ngIf="result.license">Potential Copyright: <img *ngIf="result.license" src="https://img.icons8.com/ios-filled/50/FA5252/verified-account.png" alt="cancel--v1"/></p>
-             
+            <h3>{{ result.title }}</h3>
+             <p style="color: green" *ngIf="!result.license">No Copyright: <img *ngIf="!result.license" src="https://img.icons8.com/fluency/48/verified-account--v1.png" alt="verified-account--v1"/></p>
+             <p style="color: red" *ngIf="result.license">Potential Copyright: <img *ngIf="result.license" src="https://img.icons8.com/ios-filled/50/FA5252/verified-account.png" alt="cancel--v1"/></p>
+
           </div>
         <div *ngIf="isLogged" class="result-action">
           <button ><img width="50" height="50" src="https://img.icons8.com/ios/50/FFFFFF/facebook-like--v1.png" alt="facebook-like--v1"/></button>
@@ -43,5 +43,3 @@
       </li>
     </ul>
   </div>
-
- 

@@ -140,13 +140,14 @@ input[type="text"]::placeholder {
 }
 
 .result-info p {
-  font-size: 0.9rem;
+  font-size: 1.2rem;
   color: #ccc;
   margin: 0;
 }
 .result-info img {
-  width: 48px !important;
-  height: 48px !important;
+  width: 38px !important;
+  margin: 0;
+  
 }
 
 .result-action button {
@@ -196,4 +197,3 @@ input[type="text"]::placeholder {
     transform: rotate(360deg);
   }
 }
-
