@@ -3,6 +3,7 @@ import { Request, Response } from "express";
 import { buildQuery } from '../utils/queryBuilder';
 import { AuthRequest } from "../middleware/auth";
 import MusicModel, { Music } from "../models/music";
+import { YoutubeService } from "../services/YoutubeService";
 
 
 function getYouTubeVideoId (url: string): string {
@@ -25,16 +26,26 @@ function getYouTubeVideoId (url: string): string {
 
     return videoId;
 }
+ 
+
 export class MusicController {
     private musicService: MusicService
+    private youtubeService: YoutubeService
     // write 3 methods for getting all musics by the user, getting a single music by the user, and creating a music
 
     constructor() {
         this.musicService = new MusicService(),
+        this.youtubeService = new YoutubeService(),
+
         this.createBulkMusic = this.createBulkMusic.bind(this);
         this.getAllMusicesByUser = this.getAllMusicesByUser.bind(this);
         this.getAllMusics = this.getAllMusics.bind(this);
         this.getMusicById = this.getMusicById.bind(this);
+    }
+
+    async youtubeVideoData(videoId: string){
+        const response =  await this.youtubeService.getVideoLicense(videoId.toString())
+        return response
     }
     
     async getAllMusicesByUser (req: AuthRequest, res: Response): Promise<void> {
@@ -108,11 +119,14 @@ export class MusicController {
                 // get the video id from the youtube link
                 if (data[i] != '') {
                     const video_id = getYouTubeVideoId(data[i])
+                    const title = await this.youtubeVideoData(video_id).then((videoTitle ) => videoTitle.title)
+                    const thumbnail = await this.youtubeVideoData(video_id).then((thumb) => thumb.thumbnail)
                     const musicData:any = {
                         video_id: video_id,
                         url: data[i],
                         user_id: 'admin',
-                        thumbnail: `https://img.youtube.com/vi/${video_id}/0.jpg`,
+                        thumbnail: thumbnail,
+                        title: title,
                     }
                     console.log(musicData)
                     // check if the video_id already exists in the database
