@@ -18,7 +18,11 @@ export class SignupComponent {
   constructor(private userService: SignupService, private toastService: ToastService) {}
 
   onSubmit(): void {
-
+    if(!this.data.username.trim() || !this.data.email.trim() || !this.data.password.trim()) {
+      this.toastService.showToast('error', 'All fields are required')
+      return
+    }
+    
     if (this.data) {
       this.userService.registerUser(this.data).subscribe({
         next: (response: any) => {
