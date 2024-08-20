@@ -1,0 +1,49 @@
+<div class="tabs">
+    <button class="tab-button" [class.active]="activeTab === 'noCopyrightMusic'" (click)="selectTab('noCopyrightMusic')">No CopyRight Music</button>
+    <button class="tab-button" [class.active]="activeTab === 'likedMusics'" (click)="selectTab('likedMusics')">Liked Musics</button>
+  </div>
+  
+  <div class="content">
+    <div *ngIf="activeTab === 'noCopyrightMusic'">
+      <div class="categories">
+        <button class="category-button" *ngFor="let category of categories" [class.selected]="selectedCategory === category" (click)="selectCategory(category)">
+          {{ category }}
+        </button>
+      </div>
+      
+      <div class="music-list">
+        <div class="music-item" *ngFor="let music of musicItems">
+          <div class="music-image">
+            <img [src]="music.thumbnail" alt="Thumbnail" />
+          </div>
+          <div class="music-title">Music Title</div>
+        </div>
+      </div>
+      
+      <div class="pagination">
+        <button (click)="prevPage()">&#171;</button>
+        <button *ngFor="let page of pages; let i = index" (click)="selectPage(i + 1)" [class.active]="currentPage === i + 1">
+          {{ i + 1 }}
+        </button>
+        <button (click)="nextPage()">&#187;</button>
+      </div>
+    </div>
+  
+    <div *ngIf="activeTab === 'likedMusics'">
+      <div class="music-list">
+        <div class="music-item" *ngFor="let music of likedMusicItems">
+          <div class="music-image"></div>
+          <div class="music-title">Music Title</div>
+        </div>
+      </div>
+      <div class="pagination">
+        <button (click)="prevPage()">&#171;</button>
+        <button *ngFor="let page of pages; let i = index" (click)="selectPage(i + 1)" [class.active]="currentPage === i + 1">
+          {{ i + 1 }}
+        </button>
+        <button (click)="nextPage()">&#187;</button>
+    </div>
+
+    
+  </div>
+  

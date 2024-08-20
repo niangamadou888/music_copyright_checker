@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
+import { resourceLimits } from 'worker_threads';
 
 @Injectable({
   providedIn: 'root'
@@ -23,5 +24,8 @@ export class MusicCheckerService {
 
   likeVideo(videoId: string): Observable<any> {
     return this.http.post<any>(`http://localhost:3000/youtube/music`, {video_id: videoId})
+  }
+  getMusics(limit: number, page: number): Observable<any> {
+    return this.http.get<any>(`http://localhost:3000/music/all`, { params: { limit: limit.toString(), page: page.toString() } })
   }
 }
