@@ -8,8 +8,9 @@ export class MusicService {
         return result;
     }
     //  get all musics
-    async getAllMusics(): Promise<Music[]> {
-        return await MusicModel.find();
+    async getAllMusics(query:any, options:any): Promise<Music[]> {
+        const result = await MusicModel.find(query, null, options);
+        return result;
     }
     async getMusicById(musicId: string): Promise<Music | null> {
         try {

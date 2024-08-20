@@ -32,6 +32,9 @@ export class MusicController {
     constructor() {
         this.musicService = new MusicService(),
         this.createBulkMusic = this.createBulkMusic.bind(this);
+        this.getAllMusicesByUser = this.getAllMusicesByUser.bind(this);
+        this.getAllMusics = this.getAllMusics.bind(this);
+        this.getMusicById = this.getMusicById.bind(this);
     }
     
     async getAllMusicesByUser (req: AuthRequest, res: Response): Promise<void> {
@@ -50,10 +53,13 @@ export class MusicController {
     // get musics of all users
     async getAllMusics (req: Request, res: Response): Promise<void> {
         try {
-            const musics = await this.musicService.getAllMusics()
-            res.status(200).json(musics)
+            console.log("getting all musics")
+            const { query, options } = buildQuery(MusicModel, req.query)
+            const musics = await this.musicService.getAllMusics(query, options)
+            res.json(musics)
         } catch (error) {
-            res.status(500).json({ message: error })
+            console.log(error)
+            res.json({ message: error })
         }
     }
 
