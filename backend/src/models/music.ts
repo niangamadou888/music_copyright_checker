@@ -6,6 +6,7 @@ export interface Music extends Document {
     user_id: string;
     url: string;
     thumbnail?: string;
+    title?: string;
 }
 
 const MusicSchema = new Schema<Music>({
@@ -23,7 +24,11 @@ const MusicSchema = new Schema<Music>({
     },
     thumbnail: {
         type: String,
+    },
+    title: {
+        type: String,
     }
+
 });
 
 const MusicModel = model<Music>("Music", MusicSchema);

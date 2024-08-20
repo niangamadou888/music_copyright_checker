@@ -111,7 +111,8 @@ export class MusicController {
                     const musicData:any = {
                         video_id: video_id,
                         url: data[i],
-                        user_id: 'admin'
+                        user_id: 'admin',
+                        thumbnail: `https://img.youtube.com/vi/${video_id}/0.jpg`,
                     }
                     console.log(musicData)
                     // check if the video_id already exists in the database
