@@ -16,6 +16,7 @@ import { MatInputModule } from '@angular/material/input';
 import { MatCardModule } from '@angular/material/card';
 import { MatButtonModule } from '@angular/material/button';
 import { AdminComponent } from './admin/admin.component';
+import { MusicGalleryComponent } from './components/music-gallery/music-gallery.component';
 
 @NgModule({
   declarations: [
@@ -27,6 +28,7 @@ import { AdminComponent } from './admin/admin.component';
     SigninComponent,
     ToastComponent,
     AdminComponent,
+    MusicGalleryComponent,
 
   ],
   imports: [
