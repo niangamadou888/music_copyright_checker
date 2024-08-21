@@ -38,4 +38,11 @@ export class MusicService {
     async deleteMusic(musicId: string): Promise<Music | null> {
         return await MusicModel.findById(musicId);
     }
+    // delete all without thumbnail
+    async deleteAll(): Promise<string> {
+        await MusicModel.deleteMany({ thumbnail: { $exists: false } });
+        return "All musics without thumbnail deleted";
+        
+    }
+
 }

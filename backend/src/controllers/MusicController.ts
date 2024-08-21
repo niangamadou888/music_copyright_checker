@@ -41,6 +41,7 @@ export class MusicController {
         this.getAllMusicesByUser = this.getAllMusicesByUser.bind(this);
         this.getAllMusics = this.getAllMusics.bind(this);
         this.getMusicById = this.getMusicById.bind(this);
+        this.deleteMusics = this.deleteMusics.bind(this);
     }
 
     async youtubeVideoData(videoId: string){
@@ -121,12 +122,14 @@ export class MusicController {
                     const video_id = getYouTubeVideoId(data[i])
                     const title = await this.youtubeVideoData(video_id).then((videoTitle ) => videoTitle.title)
                     const thumbnail = await this.youtubeVideoData(video_id).then((thumb) => thumb.thumbnail)
+                    const tag = await this.youtubeVideoData(video_id).then((tag) => tag.tags)
                     const musicData:any = {
                         video_id: video_id,
                         url: data[i],
                         user_id: 'admin',
                         thumbnail: thumbnail,
                         title: title,
+                        tags: tag
                     }
                     console.log(musicData)
                     // check if the video_id already exists in the database
@@ -149,6 +152,15 @@ export class MusicController {
         catch(error){
             console.log(error)
             res.status(500).json({message: error}) 
+        }
+    }
+
+    async deleteMusics (req: AuthRequest, res: Response): Promise<void> {
+        try {
+            const result = await this.musicService.deleteAll()
+            res.json(result)
+        } catch (error) {
+            res.status(500).json({ message: error })
         }
     }
 

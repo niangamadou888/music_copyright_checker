@@ -7,6 +7,7 @@ export interface Music extends Document {
     url: string;
     thumbnail?: string;
     title?: string;
+    tags?: string[];
 }
 
 const MusicSchema = new Schema<Music>({
@@ -27,7 +28,10 @@ const MusicSchema = new Schema<Music>({
     },
     title: {
         type: String,
-    }
+    },
+    tags: {
+        type: [String],
+    },
 
 });
 
