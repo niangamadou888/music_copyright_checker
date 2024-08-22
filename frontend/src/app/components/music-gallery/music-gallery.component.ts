@@ -17,27 +17,39 @@ export class MusicGalleryComponent implements OnInit {
 
 
   activeTab: string = 'noCopyrightMusic';
-  categories: string[] = ['Background', 'Rap', 'Hip Pop', 'Sport', 'EMD', 'EDM', 'Rock', 'Indie', 'Punk', 'Metal', 'Gaming'];
+  categories: string[] = ['Background', 'Rap', 'Hip Pop', 'Gym', 'EMD', 'EDM', 'Rock', 'Indie', 'Punk', 'No copyright', 'Free Music'];
   selectedCategory: string | null = null;
   musicItems: any[] = [];
   likedMusicItems: any[] = new Array(8).fill({}); // Simulate 12 liked music items
   pages: number[] = [1, 2, 3, 4, 5];
   currentPage: number = 1;
   limit = 8;
+  filteredMusicItems: any[] = [];
 
   getMusics(): void {
     this.musicService.getMusics(this.limit, this.currentPage).subscribe((response: any) => {
       this.musicItems = response; 
+      this.filterMusicItems();
     });
+  }
+
+  filterMusicItems() {
+    if (this.selectedCategory) {
+      this.filteredMusicItems = this.musicItems.filter(item =>
+        item.tags.includes(this.selectedCategory)
+      );
+    } else {
+      this.filteredMusicItems = this.musicItems;
+    }
   }
 
   selectTab(tab: string) {
     this.activeTab = tab;
   }
 
-  selectCategory(category: string) {
+  selectCategory(category: string | null) {
     this.selectedCategory = category;
-    // Implement filtering logic here
+    this.filterMusicItems();
   }
 
   selectPage(page: number) {
