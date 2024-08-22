@@ -89,4 +89,29 @@ export class MusicCheckerComponent implements OnInit {
     return false;
   }
 
+  saveMusic(result: any): void {
+    if (this.isLogged) {
+      this.musicService.createMusic(result).subscribe(
+        (response: any) => {
+          // Success response handling
+          console.log("Music created successfully:", response);
+          this.toastService.showToast('success', 'Music saved successfully');
+        },
+        (error: any) => {
+          // Error response handling
+          if (error.status === 400 && error.error.message === "Music already exists") {
+            console.log("Music already exists:", error.error.message);
+            this.toastService.showToast('error', 'Music already exists');
+          } else {
+            console.error("An error occurred while saving music:", error);
+            this.toastService.showToast('error', 'An error occurred while saving music');
+          }
+        }
+      );
+    } else {
+      this.toastService.showToast('error', 'You need to login to save music');
+    }
+  }
+  
+
 }

@@ -42,6 +42,7 @@ export class MusicController {
         this.getAllMusics = this.getAllMusics.bind(this);
         this.getMusicById = this.getMusicById.bind(this);
         this.deleteMusics = this.deleteMusics.bind(this);
+        this.createMusic = this.createMusic.bind(this);
     }
 
     async youtubeVideoData(videoId: string){
@@ -97,12 +98,23 @@ export class MusicController {
 
     async createMusic (req: AuthRequest, res: Response): Promise<void> {
         try {
+            console.log("creating music")
+            console.log(req.body)
             const musicData = req.body
             musicData.user_id = req.user._id
+            musicData.video_id = musicData.videoId
 
-            const music = await this.musicService.createMusic(musicData)
-            res.status(201).json(music)
+            // check if the video_id already exists in the database
+            let music = await this.musicService.getMusicByVideoId(musicData.video_id)
+            if (music) {
+                console.log("Music already exists")
+                res.status(400).json({ message: "Music already exists" })
+                return
+            }
+            music = await this.musicService.createMusic(musicData)
+            res.json(music)
         } catch (error) {
+            console.log(error)
             res.status(500).json({ message: error })
         }
     }

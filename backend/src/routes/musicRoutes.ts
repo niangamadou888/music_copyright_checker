@@ -1,11 +1,12 @@
 import express from 'express';
 import { MusicController } from '../controllers/MusicController';
+import { authMiddleware } from '../middleware/auth';
 
 
 const router = express.Router();
 const musicController = new MusicController();
 
-router.post('/', musicController.createMusic);
+router.post('/', authMiddleware, musicController.createMusic);
 router.get('/', musicController.getAllMusicesByUser);
 router.post('/create-bulk', musicController.createBulkMusic);
 router.get('/all', musicController.getAllMusics);

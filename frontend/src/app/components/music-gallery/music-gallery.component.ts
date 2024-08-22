@@ -11,6 +11,7 @@ export class MusicGalleryComponent implements OnInit {
 
   ngOnInit(): void {
     this.getMusics();
+    console.log(this.musicItems);
 
   }
 

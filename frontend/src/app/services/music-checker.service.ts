@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { resourceLimits } from 'worker_threads';
 
@@ -28,4 +28,15 @@ export class MusicCheckerService {
   getMusics(limit: number, page: number): Observable<any> {
     return this.http.get<any>(`http://localhost:3000/music/all`, { params: { limit: limit.toString(), page: page.toString() } })
   }
+  createMusic(data: any): Observable<any> {
+    // Retrieve the token from localStorage
+    const token = localStorage.getItem('token');
+  
+    // Set up the headers with the Authorization token
+    const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
+  
+    // Make the POST request with the headers
+    return this.http.post<any>('http://localhost:3000/music', data, { headers });
+  }
+  
 }
