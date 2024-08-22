@@ -37,8 +37,11 @@
 
           </div>
         <div *ngIf="isLogged" class="result-action">
-          <button (click)="saveMusic(result)"><img width="50" height="50" src="https://img.icons8.com/ios/50/FFFFFF/facebook-like--v1.png" alt="facebook-like--v1"/></button>
-        </div>
+          <button class="like-button" (click)="saveMusic(result)">
+            <span class="icon">
+              <img src="https://img.icons8.com/ios-filled/50/FFFFFF/facebook-like.png" alt="like-icon"/>
+            </span>
+          </button>      </div>
         </div>
       </li>
     </ul>
