@@ -105,7 +105,7 @@ export class MusicController {
             musicData.video_id = musicData.videoId
 
             // check if the video_id already exists in the database
-            let music = await this.musicService.getMusicByVideoId(musicData.video_id)
+            let music = await this.musicService.getMuiscByUserIdVidId(req.user._id, musicData.video_id)
             if (music) {
                 console.log("Music already exists")
                 res.status(400).json({ message: "Music already exists" })

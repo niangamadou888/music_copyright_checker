@@ -26,6 +26,9 @@ export class MusicService {
         }
         
     }
+    async getMuiscByUserIdVidId(userId: string, videoId: string): Promise<Music | null> {
+        return await MusicModel.findOne({ user_id: userId, video_id: videoId });
+    }
     async getMusicByVideoId(videoId: string): Promise<Music | null> {
         return await MusicModel.findOne({ video_id: videoId });
     }
