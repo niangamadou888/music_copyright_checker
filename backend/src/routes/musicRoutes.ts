@@ -7,7 +7,7 @@ const router = express.Router();
 const musicController = new MusicController();
 
 router.post('/', authMiddleware, musicController.createMusic);
-router.get('/', musicController.getAllMusicesByUser);
+router.get('/user', authMiddleware, musicController.getAllMusicesByUser);
 router.post('/create-bulk', musicController.createBulkMusic);
 router.get('/all', musicController.getAllMusics);
 // router.delete('/delete-all', musicController.deleteMusics);
