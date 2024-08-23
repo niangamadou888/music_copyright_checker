@@ -26,7 +26,7 @@ export class MusicGalleryComponent implements OnInit {
   likedMusicItems: any[] = []
   pages: number[] = [1, 2, 3, 4, 5];
   currentPage: number = 1;
-  limit = 8;
+  limit = 4;
   filteredMusicItems: any[] = [];
   isLogged: boolean = false;
 
@@ -60,12 +60,14 @@ export class MusicGalleryComponent implements OnInit {
   selectPage(page: number) {
     this.currentPage = page;
     this.getMusics();
+    this.getMusicsByUser();
   }
 
   prevPage() {
     if (this.currentPage > 1) {
       this.currentPage--;
       this.getMusics();
+      this.getMusicsByUser();
     }
   }
 
@@ -73,6 +75,7 @@ export class MusicGalleryComponent implements OnInit {
     if (this.currentPage < this.pages.length) {
       this.currentPage++;
       this.getMusics();
+      this.getMusicsByUser();
     }
   }
 
