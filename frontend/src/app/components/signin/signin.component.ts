@@ -31,7 +31,10 @@ export class SigninComponent {
           }
           this.toastService.showToast('success', 'User logged in successfully')
           localStorage.setItem('token', response.body.token)
-          // window.location.href = '/'
+          setTimeout(() => {
+            window.location.href = '/';
+          } , 2000);
+          
           this.data = {
             email: '',
             password: ''
