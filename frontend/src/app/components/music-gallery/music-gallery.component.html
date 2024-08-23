@@ -1,7 +1,7 @@
 <app-header></app-header>
 <div class="tabs">
     <button class="tab-button" [class.active]="activeTab === 'noCopyrightMusic'" (click)="selectTab('noCopyrightMusic')">No CopyRight Music</button>
-    <button class="tab-button" [class.active]="activeTab === 'likedMusics'" (click)="selectTab('likedMusics')">Liked Musics</button>
+    <button *ngIf = "isLogged" class="tab-button" [class.active]="activeTab === 'likedMusics'" (click)="selectTab('likedMusics')">Liked Musics</button>
   </div>
   
   <div class="content">
@@ -17,11 +17,13 @@
       
       <div class="music-list">
         <div class="music-item" *ngFor="let music of filteredMusicItems">
+          <div *ngIf="music.user_id === 'admin'">
           <div class="music-image">
             <img [src]="music.thumbnail" alt="Thumbnail" />
           </div>
           <div class="music-title">
-            <p> {{music.title}}</p>
+         {{music.title}}
+          </div>
           </div>
         </div>
       </div>
@@ -35,11 +37,12 @@
       </div>
     </div>
   
+    <div *ngIf="isLogged">
     <div *ngIf="activeTab === 'likedMusics'">
       <div class="music-list">
         <div class="music-item" *ngFor="let music of likedMusicItems">
-          <div class="music-image"></div>
-          <div class="music-title">Music Title</div>
+          <div class="music-image"> <img [src]="music.thumbnail" alt="Thumbnail" /></div>
+          <div class="music-title">{{music.title}}</div>
         </div>
       </div>
       <div class="pagination">
@@ -49,7 +52,7 @@
         </button>
         <button (click)="nextPage()">&#187;</button>
     </div>
-
+  </div>
     
   </div>
   

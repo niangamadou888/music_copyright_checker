@@ -10,8 +10,11 @@ export class MusicGalleryComponent implements OnInit {
   constructor(private musicService: MusicCheckerService) {}
 
   ngOnInit(): void {
+    this.isAuth();
     this.getMusics();
-    console.log(this.musicItems);
+    this.getMusicsByUser();
+    console.log(this.likedMusicItems);
+    console.log(this.isLogged);
 
   }
 
@@ -20,11 +23,12 @@ export class MusicGalleryComponent implements OnInit {
   categories: string[] = ['Background', 'Rap', 'Hip Pop', 'Gym', 'EMD', 'EDM', 'Rock', 'Indie', 'Punk', 'No copyright', 'Free Music'];
   selectedCategory: string | null = null;
   musicItems: any[] = [];
-  likedMusicItems: any[] = new Array(8).fill({}); // Simulate 12 liked music items
+  likedMusicItems: any[] = []
   pages: number[] = [1, 2, 3, 4, 5];
   currentPage: number = 1;
   limit = 8;
   filteredMusicItems: any[] = [];
+  isLogged: boolean = false;
 
   getMusics(): void {
     this.musicService.getMusics(this.limit, this.currentPage).subscribe((response: any) => {
@@ -32,6 +36,7 @@ export class MusicGalleryComponent implements OnInit {
       this.filterMusicItems();
     });
   }
+
 
   filterMusicItems() {
     if (this.selectedCategory) {
@@ -68,6 +73,30 @@ export class MusicGalleryComponent implements OnInit {
     if (this.currentPage < this.pages.length) {
       this.currentPage++;
       this.getMusics();
+    }
+  }
+
+  isAuth(): boolean {
+    let token: string | null = null;
+
+    if (typeof window !== 'undefined') {
+      token = localStorage.getItem('token');
+    }
+
+    if (token) {
+      this.isLogged = true;
+      return true;
+    }
+
+    this.isLogged = false;
+    return false;
+  }
+
+  getMusicsByUser(): void {
+    if(this.isLogged) {
+      this.musicService.getMusicsByUser(this.limit, this.currentPage).subscribe((response: any) => {
+        this.likedMusicItems = response
+      });
     }
   }
 }

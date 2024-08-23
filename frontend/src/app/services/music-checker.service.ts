@@ -38,5 +38,11 @@ export class MusicCheckerService {
     // Make the POST request with the headers
     return this.http.post<any>('http://localhost:3000/music', data, { headers });
   }
+  getMusicsByUser(limit: number, page: number): Observable<any> {
+    const token = localStorage.getItem('token');
+
+    const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
+    return this.http.get<any>(`http://localhost:3000/music/user`, { params: { limit: limit.toString(), page: page.toString() }, headers })
+  }
   
 }
