@@ -1,13 +1,16 @@
 import { Component, OnInit } from '@angular/core';
 import { MusicCheckerService } from '../../services/music-checker.service';
+import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
+import { MatDialog } from '@angular/material/dialog';
+import { MusicDialogComponent } from '../music-dialog/music-dialog.component'; // Import the dialog component
 
 @Component({
   selector: 'app-music-gallery',
   templateUrl: './music-gallery.component.html',
-  styleUrl: './music-gallery.component.css'
+  styleUrls: ['./music-gallery.component.css']
 })
 export class MusicGalleryComponent implements OnInit {
-  constructor(private musicService: MusicCheckerService) {}
+  constructor(private musicService: MusicCheckerService, private sanitizer: DomSanitizer, private dialog: MatDialog) {} // Inject MatDialog
 
   ngOnInit(): void {
     this.isAuth();
@@ -15,15 +18,13 @@ export class MusicGalleryComponent implements OnInit {
     this.getMusicsByUser();
     console.log(this.likedMusicItems);
     console.log(this.isLogged);
-
   }
-
 
   activeTab: string = 'noCopyrightMusic';
   categories: string[] = ['Background', 'Rap', 'Hip Pop', 'Gym', 'EMD', 'EDM', 'Rock', 'Indie', 'Punk', 'No copyright', 'Free Music'];
   selectedCategory: string | null = null;
   musicItems: any[] = [];
-  likedMusicItems: any[] = []
+  likedMusicItems: any[] = [];
   pages: number[] = [1, 2, 3, 4, 5];
   currentPage: number = 1;
   limit = 4;
@@ -32,11 +33,10 @@ export class MusicGalleryComponent implements OnInit {
 
   getMusics(): void {
     this.musicService.getMusics(this.limit, this.currentPage).subscribe((response: any) => {
-      this.musicItems = response; 
+      this.musicItems = response;
       this.filterMusicItems();
     });
   }
-
 
   filterMusicItems() {
     if (this.selectedCategory) {
@@ -96,10 +96,30 @@ export class MusicGalleryComponent implements OnInit {
   }
 
   getMusicsByUser(): void {
-    if(this.isLogged) {
+    if (this.isLogged) {
       this.musicService.getMusicsByUser(this.limit, this.currentPage).subscribe((response: any) => {
-        this.likedMusicItems = response
+        this.likedMusicItems = response;
       });
     }
+  }
+
+  playSong(url: string) {
+    const embedUrl = this.getEmbedUrl(url);
+    const dialogRef = this.dialog.open(MusicDialogComponent, {
+      data: { url: embedUrl },
+      width: '50%',
+      height: '55%'
+
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      console.log('The dialog was closed');
+    });
+  }
+
+  private getEmbedUrl(url: string): SafeResourceUrl {
+    const videoId = url.split('v=')[1];
+    const embedUrl = `https://www.youtube.com/embed/${videoId}`;
+    return this.sanitizer.bypassSecurityTrustResourceUrl(embedUrl);
   }
 }
