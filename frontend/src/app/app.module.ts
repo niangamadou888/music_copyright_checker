@@ -15,8 +15,10 @@ import { FormsModule } from '@angular/forms';
 import { MatInputModule } from '@angular/material/input';
 import { MatCardModule } from '@angular/material/card';
 import { MatButtonModule } from '@angular/material/button';
+import { MatDialogModule } from '@angular/material/dialog';
 import { AdminComponent } from './admin/admin.component';
 import { MusicGalleryComponent } from './components/music-gallery/music-gallery.component';
+import { MusicDialogComponent } from './components/music-dialog/music-dialog.component';
 
 @NgModule({
   declarations: [
@@ -29,12 +31,16 @@ import { MusicGalleryComponent } from './components/music-gallery/music-gallery.
     ToastComponent,
     AdminComponent,
     MusicGalleryComponent,
+    MusicDialogComponent,
+
 
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
-    FormsModule
+    FormsModule,
+    MatDialogModule,
+    MatButtonModule,
   ],
   providers: [
     provideClientHydration(),
