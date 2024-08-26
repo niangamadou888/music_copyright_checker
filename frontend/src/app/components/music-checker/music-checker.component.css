@@ -8,6 +8,7 @@
   box-shadow: 0px 15px 25px rgba(0, 0, 0, 0.2);
   transition: transform 0.3s ease;
   margin: 0 auto; /* Center the container */
+  
 }
 
 .music-checker:hover {
@@ -88,6 +89,8 @@ input[type="text"]::placeholder {
   /* max-width: 500px; Limit width of results */
   margin: 0 auto; /* Center the results */
   /* max-height: 50%; */
+  overflow-y: auto;
+
 }
 
 .results h2 {

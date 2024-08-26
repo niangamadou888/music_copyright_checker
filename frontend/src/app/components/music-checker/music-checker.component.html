@@ -1,7 +1,7 @@
 <app-header></app-header>
 
 
-<section class="music-checker">
+<section class="music-checker" [ngStyle]="{'margin-top.px': results.length > 0 ? 200 : 0}">
   <h1>Check music for copyright</h1>
   <form #searchForm="ngForm" (ngSubmit)="submitForm(searchForm)">
 
