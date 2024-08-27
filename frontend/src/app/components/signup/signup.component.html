@@ -1,5 +1,16 @@
 <div class="register-container">
-
+  <div class="left-side">
+    <div class="back-to-website">
+      <button (click)="goBack()">
+        <img width="50" height="50" src="https://img.icons8.com/ios-filled/50/FFFFFF/home.png" alt="home"/>
+      </button>
+    </div>
+    <div class="caption">
+      <img src="https://img.icons8.com/nolan/96/music.png" alt="Music Logo">
+      <h1>Check Your Music</h1>
+      <p>Ensure your music is copyright-free and ready to share on YouTube.</p>
+    </div>
+  </div>
 
   <div class="right-side">
     <h2>Create an account</h2>
@@ -7,7 +18,7 @@
 
     <form (ngSubmit)="onSubmit()">
       <div class="input-group">
-        <input type="text" placeholder="User name" required [(ngModel)]="data.username" [ngModelOptions]="{standalone: true}" >
+        <input type="text" placeholder="User name" required [(ngModel)]="data.username" [ngModelOptions]="{standalone: true}">
       </div>
       <input type="email" placeholder="Email" required [(ngModel)]="data.email" [ngModelOptions]="{standalone: true}">
       <input type="password" placeholder="Enter your password" required [(ngModel)]="data.password" [ngModelOptions]="{standalone: true}">
@@ -15,15 +26,4 @@
       <button type="submit">Create account</button>
     </form>
   </div>
-  
-  <div class="left-side">
-    <!-- <img src="" alt="Background Image" class="background-image"> -->
-    <div class="back-to-website">
-      <button (click)="goBack()"><img width="50" height="50" src="https://img.icons8.com/ios-filled/50/FFFFFF/home.png" alt="home"/></button>
-    </div>
-    <div class="caption">
-      <!-- replaceable -->
-          </div>
-  </div>
 </div>
-
