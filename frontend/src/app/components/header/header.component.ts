@@ -1,6 +1,7 @@
 import { isFakeTouchstartFromScreenReader } from '@angular/cdk/a11y';
 import { Component, OnInit } from '@angular/core';
 import { ToastService } from '../../services/toast.service';
+import { SignupService } from '../../services/signup.service';
 
 @Component({
   selector: 'app-header',
@@ -9,37 +10,30 @@ import { ToastService } from '../../services/toast.service';
 })
 export class HeaderComponent implements OnInit {
 
-  constructor(private toastService: ToastService) {}
+  constructor(private toastService: ToastService, private userService: SignupService) {}
 
   ngOnInit(): void {
     this.isAuth();
-    
   }
+
   isLogged: boolean = false;
 
   isAuth(): boolean {
-    let token: string | null = null;
-
-    if (typeof window !== 'undefined') {
-      token = localStorage.getItem('token');
-    }
-
-    if (token) {
-      this.isLogged = true;
+    this.isLogged = this.userService.isAuth();
+    if (this.isLogged) {
       return true;
     }
-
-    this.isLogged = false;
     return false;
   }
 
   logOut(): void {
-    if (typeof window !== 'undefined') {
-      localStorage.removeItem('token');
+    if(this.isLogged) {
+      this.userService.deleteToken();
       this.toastService.showToast('success', 'Logged out successfully');
       setTimeout(() => {
         window.location.href = '/';
-      } , 2000);
+      }, 2000);
     }
   }
+
 }

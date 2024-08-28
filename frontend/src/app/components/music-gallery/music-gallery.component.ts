@@ -2,7 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { MusicCheckerService } from '../../services/music-checker.service';
 import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
 import { MatDialog } from '@angular/material/dialog';
-import { MusicDialogComponent } from '../music-dialog/music-dialog.component'; // Import the dialog component
+import { MusicDialogComponent } from '../music-dialog/music-dialog.component'; 
+import { SignupService } from '../../services/signup.service';
 
 @Component({
   selector: 'app-music-gallery',
@@ -10,14 +11,12 @@ import { MusicDialogComponent } from '../music-dialog/music-dialog.component'; /
   styleUrls: ['./music-gallery.component.css']
 })
 export class MusicGalleryComponent implements OnInit {
-  constructor(private musicService: MusicCheckerService, private sanitizer: DomSanitizer, private dialog: MatDialog) {} // Inject MatDialog
+  constructor(private musicService: MusicCheckerService, private sanitizer: DomSanitizer, private dialog: MatDialog, private userService: SignupService) {} 
 
   ngOnInit(): void {
     this.isAuth();
     this.getMusics();
     this.getMusicsByUser();
-    console.log(this.likedMusicItems);
-    console.log(this.isLogged);
   }
 
   activeTab: string = 'noCopyrightMusic';
@@ -80,18 +79,12 @@ export class MusicGalleryComponent implements OnInit {
   }
 
   isAuth(): boolean {
-    let token: string | null = null;
 
-    if (typeof window !== 'undefined') {
-      token = localStorage.getItem('token');
-    }
-
-    if (token) {
+    const isLogged = this.userService.isAuth();
+    if (isLogged) {
       this.isLogged = true;
       return true;
     }
-
-    this.isLogged = false;
     return false;
   }
 
