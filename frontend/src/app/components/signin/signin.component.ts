@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, Renderer2 } from '@angular/core';
 import { SignupService } from '../../services/signup.service';
 import { ToastService } from '../../services/toast.service';
 
@@ -9,15 +9,23 @@ import { ToastService } from '../../services/toast.service';
 })
 export class SigninComponent {
 
-  constructor(private userService: SignupService, private toastService: ToastService) {}
+  constructor(private userService: SignupService, private toastService: ToastService, private renderer: Renderer2) {}
 
+  username: string = '';
+  password: string = '';
   data: any = {
     email:'',
     password:''
   }
+  imagePath: string = "/assets/youtube.jpg"
+  clicked: boolean = false;
+
+  ngOnInit() {
+    this.renderer.addClass(document.body, 'bg-img');
+  }
 
   onSubmit(): void {
-
+    this.clicked = true;
 
     if(this.data) {
       this.userService.login(this.data).subscribe({
@@ -44,6 +52,7 @@ export class SigninComponent {
           this.toastService.showToast('error', `${error.statusText}`)
           // alert('login error')
           console.error('log in error', error)
+          this.clicked = false;
         }
       })
   }
@@ -53,4 +62,9 @@ export class SigninComponent {
 
     window.location.href = '/';
   }
+  toggleForm() {
+    const container = document.querySelector('.container');
+    container?.classList.toggle('active');
+  }
+
 }

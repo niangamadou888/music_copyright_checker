@@ -29,3 +29,12 @@ body {
 
 html, body { height: 100%; }
 body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+
+
+.bg-img {
+    /* background-image: url('https://images.pexels.com/photos/7423/pexels-photo.jpg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1'); */
+    background-image: url("https://images.pexels.com/photos/96857/pexels-photo-96857.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1");
+    height: 100vh;
+    background-size: cover;
+    background-position: center;
+  }
