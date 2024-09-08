@@ -14,6 +14,7 @@ export class MusicGalleryComponent implements OnInit {
   constructor(private musicService: MusicCheckerService, private sanitizer: DomSanitizer, private dialog: MatDialog, private userService: SignupService, private renderer: Renderer2, private el: ElementRef) {} 
 
   ngOnInit(): void {
+    this.renderer.removeClass(this.el.nativeElement.ownerDocument.body, 'bg-img');
     this.renderer.setStyle(this.el.nativeElement.ownerDocument.body, 'background-color', '#222');
     this.isAuth();
     this.getMusics();

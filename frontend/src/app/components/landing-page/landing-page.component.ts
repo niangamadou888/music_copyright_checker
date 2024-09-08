@@ -27,6 +27,10 @@ export class LandingPageComponent implements OnInit{
   this.userService.isAuth();
  }
 
+ ngOnDestory(): void {
+    this.renderer.removeClass(this.el.nativeElement.ownerDocument.body, 'bg-img');
+  }
+
 //  
 
 }

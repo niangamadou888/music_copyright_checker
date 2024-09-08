@@ -1,4 +1,4 @@
-import { Component, Renderer2, ElementRef } from '@angular/core';
+import { Component, Renderer2, ElementRef, OnInit, OnDestroy} from '@angular/core';
 import { SignupService } from '../../services/signup.service';
 import { ToastService } from '../../services/toast.service';
 
@@ -7,7 +7,7 @@ import { ToastService } from '../../services/toast.service';
   templateUrl: './signin.component.html',
   styleUrl: './signin.component.css'
 })
-export class SigninComponent {
+export class SigninComponent implements OnInit {
 
   constructor(private userService: SignupService, private toastService: ToastService, private renderer: Renderer2, private el: ElementRef) {}
 
@@ -70,7 +70,9 @@ export class SigninComponent {
   }
 
   ngOnDestroy() {
-    this.renderer.setStyle(this.el.nativeElement.ownerDocument.body, 'background-image', 'none');
+    this.renderer.removeStyle(this.el.nativeElement.ownerDocument.body, 'background-image');
+
   }
+
 
 }

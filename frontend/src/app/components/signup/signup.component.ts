@@ -68,7 +68,8 @@ export class SignupComponent {
   }
 
   ngOnDestroy() {
-    this.renderer.setStyle(this.el.nativeElement.ownerDocument.body, 'background-image', 'none');
+    this.renderer.removeStyle(this.el.nativeElement.ownerDocument.body, 'background-image');
+;
   }
 
 
