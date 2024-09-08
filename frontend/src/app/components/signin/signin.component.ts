@@ -1,4 +1,4 @@
-import { Component, Renderer2 } from '@angular/core';
+import { Component, Renderer2, ElementRef } from '@angular/core';
 import { SignupService } from '../../services/signup.service';
 import { ToastService } from '../../services/toast.service';
 
@@ -9,7 +9,7 @@ import { ToastService } from '../../services/toast.service';
 })
 export class SigninComponent {
 
-  constructor(private userService: SignupService, private toastService: ToastService, private renderer: Renderer2) {}
+  constructor(private userService: SignupService, private toastService: ToastService, private renderer: Renderer2, private el: ElementRef) {}
 
   username: string = '';
   password: string = '';
@@ -17,11 +17,13 @@ export class SigninComponent {
     email:'',
     password:''
   }
-  imagePath: string = "/assets/youtube.jpg"
+  imagePath: string = "https://images.pexels.com/photos/96857/pexels-photo-96857.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1"
   clicked: boolean = false;
 
   ngOnInit() {
-    this.renderer.addClass(document.body, 'bg-img');
+    // this.renderer.addClass(document.body, 'bg-img');
+    //     this.renderer.setStyle(this.el.nativeElement.ownerDocument.body, 'background-color', '#222');
+    this.renderer.setStyle(this.el.nativeElement.ownerDocument.body, 'background-image', 'url(' + this.imagePath + ')');
   }
 
   onSubmit(): void {
