@@ -69,4 +69,8 @@ export class SigninComponent {
     container?.classList.toggle('active');
   }
 
+  ngOnDestroy() {
+    this.renderer.setStyle(this.el.nativeElement.ownerDocument.body, 'background-image', 'none');
+  }
+
 }

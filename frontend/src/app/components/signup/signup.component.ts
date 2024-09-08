@@ -67,5 +67,9 @@ export class SignupComponent {
     window.location.href = '/';
   }
 
+  ngOnDestroy() {
+    this.renderer.setStyle(this.el.nativeElement.ownerDocument.body, 'background-image', 'none');
+  }
+
 
 }
