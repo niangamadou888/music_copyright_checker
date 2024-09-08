@@ -7,6 +7,7 @@ import userRoutes from './routes';
 import authRoutes from './routes/authRoutes';
 import youtubeRoutes from './routes/youtubeRoutes';
 import musicRoutes from './routes/musicRoutes';
+import tagRoutes from './routes/tagRoutes';
 
 import bodyParser from 'body-parser';
 import path from 'path';
@@ -26,6 +27,7 @@ app.use('/users', userRoutes);
 app.use('/auth', authRoutes);
 app.use('/youtube', youtubeRoutes);
 app.use('/music', musicRoutes);
+app.use('/tags', tagRoutes);
 
 app.use(express.static(path.join(__dirname, 'public')));
 
