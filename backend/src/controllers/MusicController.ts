@@ -4,6 +4,7 @@ import { buildQuery } from '../utils/queryBuilder';
 import { AuthRequest } from "../middleware/auth";
 import MusicModel, { Music } from "../models/music";
 import { YoutubeService } from "../services/YoutubeService";
+import { TagService } from "../services/tagService";
 
 
 function getYouTubeVideoId (url: string): string {
@@ -31,11 +32,13 @@ function getYouTubeVideoId (url: string): string {
 export class MusicController {
     private musicService: MusicService
     private youtubeService: YoutubeService
+    private tagService: TagService
     // write 3 methods for getting all musics by the user, getting a single music by the user, and creating a music
 
     constructor() {
         this.musicService = new MusicService(),
         this.youtubeService = new YoutubeService(),
+        this.tagService = new TagService()
 
         this.createBulkMusic = this.createBulkMusic.bind(this);
         this.getAllMusicesByUser = this.getAllMusicesByUser.bind(this);
@@ -43,6 +46,7 @@ export class MusicController {
         this.getMusicById = this.getMusicById.bind(this);
         this.deleteMusics = this.deleteMusics.bind(this);
         this.createMusic = this.createMusic.bind(this);
+
     }
 
     async youtubeVideoData(videoId: string){
@@ -111,7 +115,19 @@ export class MusicController {
                 res.status(400).json({ message: "Music already exists" })
                 return
             }
+            // update the tag count
+            const tags = musicData.tags
+            if  (tags) {
+                try {
+                    for (let i = 0; i < tags.length; i++) {
+                        await this.tagService.updateTagCount(tags[i])
+                    }
+                } catch (error) {
+                    console.log(error)
+                }
+            }
             music = await this.musicService.createMusic(musicData)
+
             res.json(music)
         } catch (error) {
             console.log(error)
