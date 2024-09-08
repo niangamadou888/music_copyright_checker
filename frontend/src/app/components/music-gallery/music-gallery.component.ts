@@ -19,11 +19,12 @@ export class MusicGalleryComponent implements OnInit {
     this.isAuth();
     this.getMusics();
     this.getMusicsByUser();
+    this.getTags();
 
   }
 
   activeTab: string = 'noCopyrightMusic';
-  categories: string[] = ['Background', 'Rap', 'Hip Pop', 'Gym', 'EMD', 'EDM', 'Rock', 'Indie', 'Punk', 'No copyright', 'Free Music'];
+  categories: string[] = [];
   selectedCategory: string | null = null;
   musicItems: any[] = [];
   likedMusicItems: any[] = [];
@@ -32,6 +33,14 @@ export class MusicGalleryComponent implements OnInit {
   limit = 12;
   filteredMusicItems: any[] = [];
   isLogged: boolean = false;
+
+  getTags(): string[] {
+    this.musicService.getTags().subscribe((response: any) => {
+      console.log(response);
+     this.categories= response.map((tag: any) =>  [tag.tagName, tag.count])
+      });
+      return this.categories;
+  }
 
   getMusics(): void {
     this.musicService.getMusics(this.limit, this.currentPage).subscribe((response: any) => {

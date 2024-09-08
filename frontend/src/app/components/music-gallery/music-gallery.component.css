@@ -134,3 +134,8 @@
       width: 45%;
     }
   }
+  .super {
+    vertical-align: super;
+    color: #e1b515;
+    font-size: 14px;
+  }

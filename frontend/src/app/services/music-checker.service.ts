@@ -44,5 +44,9 @@ export class MusicCheckerService {
     const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
     return this.http.get<any>(`http://localhost:3000/music/user`, { params: { limit: limit.toString(), page: page.toString() }, headers })
   }
+
+  getTags(): Observable<any> {
+    return this.http.get<any>(`http://localhost:3000/tags/top/10`)
+  }
   
 }

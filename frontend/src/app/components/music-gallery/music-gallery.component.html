@@ -10,8 +10,10 @@
       <button class="category-button" [class.selected]="selectedCategory === null" (click)="selectCategory(null)">
         All Categories
       </button>
-      <button class="category-button" *ngFor="let category of categories" [class.selected]="selectedCategory === category" (click)="selectCategory(category)">
-        {{ category }}
+  
+      <button class="category-button" *ngFor="let catagory of categories" [class.selected]="selectedCategory === catagory" (click)="selectCategory(catagory)">
+        {{ catagory[0] }} 
+        <span class="super" *ngIf="catagory[1]">{{ catagory[1] }}</span>
       </button>
     </div>
     
