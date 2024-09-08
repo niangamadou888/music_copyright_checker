@@ -19,6 +19,8 @@ import { MatDialogModule } from '@angular/material/dialog';
 import { AdminComponent } from './admin/admin.component';
 import { MusicGalleryComponent } from './components/music-gallery/music-gallery.component';
 import { MusicDialogComponent } from './components/music-dialog/music-dialog.component';
+import {MatIconModule} from '@angular/material/icon';
+import { LandingPageComponent } from './components/landing-page/landing-page.component';
 
 @NgModule({
   declarations: [
@@ -32,6 +34,7 @@ import { MusicDialogComponent } from './components/music-dialog/music-dialog.com
     AdminComponent,
     MusicGalleryComponent,
     MusicDialogComponent,
+    LandingPageComponent,
 
 
   ],
@@ -41,6 +44,11 @@ import { MusicDialogComponent } from './components/music-dialog/music-dialog.com
     FormsModule,
     MatDialogModule,
     MatButtonModule,
+    MatCardModule,
+    MatInputModule,
+    MatIconModule
+
+
   ],
   providers: [
     provideClientHydration(),

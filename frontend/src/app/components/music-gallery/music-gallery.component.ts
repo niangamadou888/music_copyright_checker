@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Renderer2, ElementRef } from '@angular/core';
 import { MusicCheckerService } from '../../services/music-checker.service';
 import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
 import { MatDialog } from '@angular/material/dialog';
@@ -11,12 +11,14 @@ import { SignupService } from '../../services/signup.service';
   styleUrls: ['./music-gallery.component.css']
 })
 export class MusicGalleryComponent implements OnInit {
-  constructor(private musicService: MusicCheckerService, private sanitizer: DomSanitizer, private dialog: MatDialog, private userService: SignupService) {} 
+  constructor(private musicService: MusicCheckerService, private sanitizer: DomSanitizer, private dialog: MatDialog, private userService: SignupService, private renderer: Renderer2, private el: ElementRef) {} 
 
   ngOnInit(): void {
+    this.renderer.setStyle(this.el.nativeElement.ownerDocument.body, 'background-color', '#222');
     this.isAuth();
     this.getMusics();
     this.getMusicsByUser();
+
   }
 
   activeTab: string = 'noCopyrightMusic';
@@ -26,7 +28,7 @@ export class MusicGalleryComponent implements OnInit {
   likedMusicItems: any[] = [];
   pages: number[] = [1, 2, 3, 4, 5];
   currentPage: number = 1;
-  limit = 4;
+  limit = 12;
   filteredMusicItems: any[] = [];
   isLogged: boolean = false;
 

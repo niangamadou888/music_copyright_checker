@@ -6,9 +6,11 @@ import { SigninComponent } from './components/signin/signin.component';
 import { AdminComponent } from './admin/admin.component';
 import { AuthGuard } from './services/auth.guard';
 import { MusicGalleryComponent } from './components/music-gallery/music-gallery.component';
+import { LandingPageComponent } from './components/landing-page/landing-page.component';
 
 const routes: Routes = [
-  {path: '', component: MusicCheckerComponent},
+  {path: '', component: LandingPageComponent},
+  {path: 'home', component: MusicCheckerComponent},
   {path: 'sign-up', component: SignupComponent},
   {path: 'sign-in', component: SigninComponent},
   {path: 'music-gallery', component: MusicGalleryComponent},

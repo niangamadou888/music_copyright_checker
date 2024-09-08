@@ -2,6 +2,20 @@ import { Component, OnInit } from '@angular/core';
 import { MusicCheckerService } from '../../services/music-checker.service';
 import { ToastService } from '../../services/toast.service';
 import { NgForm } from '@angular/forms';
+import { MatDialog } from '@angular/material/dialog';
+import { MusicDialogComponent } from '../music-dialog/music-dialog.component';
+import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
+import { SignupService } from '../../services/signup.service';
+import { MatCardActions } from '@angular/material/card';
+import { MatButton } from '@angular/material/button';
+import { MatCard } from '@angular/material/card';
+import { MatCardContent } from '@angular/material/card';
+import { MatCardHeader } from '@angular/material/card';
+import { MatCardTitle } from '@angular/material/card';
+import { MatCardSubtitle } from '@angular/material/card';
+import { MatCardImage } from '@angular/material/card';
+import { MatCardFooter } from '@angular/material/card';
+import { MatIcon } from '@angular/material/icon';
 
 
 @Component({
@@ -16,27 +30,42 @@ export class MusicCheckerComponent implements OnInit {
   searchType: string = 'name';
   clicked: boolean = false;
   isLogged: boolean = false;
+  checkButtonText: string = 'Check';
 
-  constructor(private musicService: MusicCheckerService, private toastService: ToastService) {}
+  constructor(private musicService: MusicCheckerService, private toastService: ToastService, private dialog: MatDialog, private sanitizer: DomSanitizer, private userService: SignupService) {}
 
   ngOnInit(): void {
     this.isAuth();
-
   }
+
+  isAuth(): boolean {
+    this.isLogged = this.userService.isAuth();
+    if (this.isLogged) {
+      return true;
+    }
+    return false;
+  }
+
   searchByName(): void {
+    this.checkButtonText = 'Checking...';
     this.musicService.getVidsByName(this.search_query).subscribe((response: any) => {
       this.results.push(response)
+      this.search_query = '';
       console.log(response)
       this.clicked = false;
+      this.checkButtonText = 'Check';
       return response
     });
   }
 
   searchById(): void {
+    this.checkButtonText = 'Checking...';
     this.musicService.getVidsById(this.search_query).subscribe((response: any) => {
       this.results.push(response)
+      this.search_query = '';
       console.log(response)
       this.clicked = false;
+      this.checkButtonText = 'Check';
       return response
     });
   }
@@ -56,9 +85,11 @@ export class MusicCheckerComponent implements OnInit {
 
     if (this.searchType === 'name') {
       this.searchByName();
+
     } else {
       this.searchById();
     }
+
   }
 
   likeVideo(videoId: string): void {
@@ -72,22 +103,7 @@ export class MusicCheckerComponent implements OnInit {
     });
   }
 
-  isAuth(): boolean {
-    let token: string | null = null;
 
-    if (typeof window !== 'undefined') {
-      token = localStorage.getItem('token');
-      console.log(token);
-    }
-
-    if (token) {
-      this.isLogged = true;
-      return true;
-    }
-
-    this.isLogged = false;
-    return false;
-  }
 
   saveMusic(result: any): void {
     if (this.isLogged) {
@@ -111,6 +127,27 @@ export class MusicCheckerComponent implements OnInit {
     } else {
       this.toastService.showToast('error', 'You need to login to save music');
     }
+  }
+
+  playSong(url: string) {
+    const embedUrl = this.getEmbedUrl(url);
+    console.log(embedUrl)
+    const dialogRef = this.dialog.open(MusicDialogComponent, {
+      data: { url: embedUrl },
+      width: '50%',
+      height: '55%'
+
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      console.log('The dialog was closed');
+    });
+  }
+
+  private getEmbedUrl(url: string): SafeResourceUrl {
+
+
+    return this.sanitizer.bypassSecurityTrustResourceUrl(url);
   }
   
 
