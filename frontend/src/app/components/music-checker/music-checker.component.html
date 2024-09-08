@@ -28,7 +28,7 @@
   </form>
 </section>
 
-<div class="results" *ngIf="results.length > 0">
+<div id="resultCard" class="results" *ngIf="results.length > 0">
 
   <ul>
     <li *ngFor="let result of results" (click)="playSong(result.url)">

@@ -10,7 +10,8 @@
       </div>
     </section>
 
-    <app-music-checker></app-music-checker>
+    <app-music-checker (resultsChange)="handleResultsChange($event)"></app-music-checker>
+
   
     <!-- Features Section -->
     <section class="features">

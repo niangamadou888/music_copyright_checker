@@ -13,9 +13,20 @@ export class LandingPageComponent implements OnInit{
 
   constructor(private userService: SignupService, private renderer: Renderer2, private el: ElementRef) {}
 
+  parentResults: any[] = [];
+
+  handleResultsChange(newResults: any[]) {
+    // scrollup by 300 pixel
+    window.scrollBy(0, 300);
+    console.log('Results received from child:', this.parentResults);
+}
+
+
   ngOnInit(): void {
   this.renderer.addClass(this.el.nativeElement.ownerDocument.body, 'bg-img');
   this.userService.isAuth();
  }
+
+//  
 
 }

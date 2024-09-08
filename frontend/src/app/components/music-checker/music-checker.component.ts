@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Output, EventEmitter } from '@angular/core';
 import { MusicCheckerService } from '../../services/music-checker.service';
 import { ToastService } from '../../services/toast.service';
 import { NgForm } from '@angular/forms';
@@ -24,6 +24,7 @@ import { MatIcon } from '@angular/material/icon';
   styleUrl: './music-checker.component.css'
 })
 export class MusicCheckerComponent implements OnInit {
+  @Output() resultsChange = new EventEmitter<any[]>();
 
   search_query: string = '';
   results: any[] = []
@@ -54,6 +55,7 @@ export class MusicCheckerComponent implements OnInit {
       console.log(response)
       this.clicked = false;
       this.checkButtonText = 'Check';
+      this.emitResults();
       return response
     });
   }
@@ -66,12 +68,16 @@ export class MusicCheckerComponent implements OnInit {
       console.log(response)
       this.clicked = false;
       this.checkButtonText = 'Check';
+      this.emitResults();
       return response
     });
   }
+  emitResults(): void {
+    this.resultsChange.emit(this.results);
+  }
+
 
   submitForm(form: NgForm): void {
-
     this.results = [];
 
     this.clicked = true;
