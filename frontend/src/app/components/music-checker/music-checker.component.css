@@ -422,3 +422,8 @@ a:hover {
   box-shadow: 0 0 10px rgba(74, 144, 226, 0.5);
   outline: none;
 }
+
+ul {
+  list-style-type: none;
+  padding: 0;
+}

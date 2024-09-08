@@ -6,7 +6,7 @@
   <form #searchForm="ngForm" (ngSubmit)="submitForm(searchForm)">
 
     <div class="input-group">
-      <input class="search-input" type="text" placeholder="Enter Song Name or Link" [(ngModel)]="search_query" [ngModelOptions]="{standalone: true}">
+      <input (click)="moveUp()"  class="search-input" type="text" placeholder="Enter Song Name or Link" [(ngModel)]="search_query" [ngModelOptions]="{standalone: true}">
     </div>
 
     <div class="radio-group">

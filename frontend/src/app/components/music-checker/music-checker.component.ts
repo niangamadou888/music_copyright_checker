@@ -55,7 +55,7 @@ export class MusicCheckerComponent implements OnInit {
       console.log(response)
       this.clicked = false;
       this.checkButtonText = 'Check';
-      this.emitResults();
+      this.emitResults('results');
       return response
     });
   }
@@ -68,11 +68,11 @@ export class MusicCheckerComponent implements OnInit {
       console.log(response)
       this.clicked = false;
       this.checkButtonText = 'Check';
-      this.emitResults();
+      this.emitResults('results');
       return response
     });
   }
-  emitResults(): void {
+  emitResults(source:string): void {
     this.resultsChange.emit(this.results);
   }
 
@@ -156,5 +156,10 @@ export class MusicCheckerComponent implements OnInit {
     return this.sanitizer.bypassSecurityTrustResourceUrl(url);
   }
   
+  moveUp() {
+    // send event to parent
+    console.log('input-clicked');
+    this.emitResults('input-clicked');
+  }
 
 }

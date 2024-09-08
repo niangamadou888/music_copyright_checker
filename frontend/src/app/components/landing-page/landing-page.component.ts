@@ -15,10 +15,20 @@ export class LandingPageComponent implements OnInit{
 
   parentResults: any[] = [];
 
-  handleResultsChange(newResults: any[]) {
+  handleResultsChange(newResults: any) {
     // scrollup by 300 pixel
-    window.scrollBy(0, 300);
+    // check window size and if it's on mobile dvice, scroll by 300px
     console.log('Results received from child:', this.parentResults);
+    if (newResults == "input-clicked" && window.innerWidth < 768) {
+      console.log("clicked");
+      // move to searchButtonLocation
+      window.scrollBy(0, 1200);
+      // how to move to fixed loaction by using window.height
+      
+    } else {
+      window.scrollBy(0, 300);
+    console.log('Results received from child:', this.parentResults);
+    }
 }
 
 
