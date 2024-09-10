@@ -1,5 +1,4 @@
 let apiKey = process.env.API_KEY
-apiKey = "AIzaSyBlGOTVOA6GXpuRiv5rNxpqie1qfni1JlM"
 const BASE_URL = "https://www.googleapis.com/youtube/v3"
 import axios from "axios"
 
